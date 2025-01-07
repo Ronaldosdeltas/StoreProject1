@@ -24,7 +24,7 @@ public class ClientController {
         model.addAttribute("clients", clients);
         return  "clients/index";
     }
-    @GetMapping
+    @GetMapping("/create")
     public  String showCreatePage(Model model){
         ClientDto clientDto = new ClientDto();
         model.addAttribute("clientDto",clientDto);
