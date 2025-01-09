@@ -73,9 +73,9 @@ public class ClientRepository {
     }
     public Client createClient(Client client){
         String sql ="INSERT INTO clients (firstname, lastname, email, phone, " +
-                "address, created_at) VALUES (?, ?, ?, ?, ?, ?";
+                "address, created_at) VALUES (?, ?, ?, ?, ?, ?)";
         int count = jdbcTemplate.update(sql, client.getFirstName(),client.getLastName()
-                ,client.getEmail(),client.getEmail(),client.getPhone(),client.getAddress(),client.getCreatedAt());
+                ,client.getEmail(),client.getPhone(),client.getAddress(),client.getCreatedAt());
 
     if(count > 0){
         int id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
@@ -84,15 +84,16 @@ public class ClientRepository {
     return null;
     }
     public Client updateClient(Client client){
-        String sql = "UPDATE client SET firstname=? lastname=?," +
+        String sql = "UPDATE clients SET firstname=?, lastname=?, email=?," +
                 "phone=?, address=?, created_at=? WHERE id=?";
-        jdbcTemplate.update(sql, client.getFirstName(),client.getFirstName()
-                ,client.getEmail(),client.getPhone(),client.getAddress(),client.getCreatedAt(),client.getId());
+        jdbcTemplate.update(sql, client.getFirstName(),client.getLastName()
+                ,client.getEmail(),client.getPhone(),client.getAddress()
+                ,client.getCreatedAt(),client.getId());
 
         return getClient(client.getId());
     }
     public void deleteClient(int id){
-        String sql = "DELETE FROM client WHERE id=?";
+        String sql = "DELETE FROM clients WHERE id=?";
         jdbcTemplate.update(sql,id);
     }
 
